@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from ajax_exemplo.views import ProductView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('delete/', ProductView.as_view(), name='delete-product'),
+    path('', include('ajax_exemplo2.urls'))
 ]

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Ajax</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+<h1>List of live data</h1>
+
+<ul id="display-data">
+
+</ul>
+
+<script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type:'GET',
+                url : "{% url 'getProfiles' %}",
+                success: function (response){
+                    $("#display-data").empty();
+                    for (var key in response.profiles)
+                    {
+                        var temp="<h2><li>" + response.profiles[key].name +"</li></h2>";
+                        $("#display-data").append(temp);
+                    }
+                },
+                error: function(response){
+                    alert("An Error Occurred")
+                }
+            });
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>
